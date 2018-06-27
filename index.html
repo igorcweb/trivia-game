@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="./assets/images/question-icon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
   <link rel="stylesheet" href="./assets/css/style.css">
   <title>Trivia Game</title>
@@ -16,16 +17,23 @@
       <h1>Totally Trivial Trivia!</h1>
       <button>Start</button>
       <div class="content hidden">
-        <h3 id="timer">Time Remaining:
-          <span id="time" time>30</span>
-        </h3>
+        <h2 id="timer">Time Remaining:
+          <span id="time" time>30</span> Seconds
+        </h2>
+        <h2 id="question"></h2>
+        <ul>
+          <li class="choices">Choice 1</li>
+          <li class="choices">Choice 2</li>
+          <li class="choices">Choice 3</li>
+          <li class="choices">Choice 4</li>
+        </ul>
         <video autoplay="autoplay" loop="loop" src="https://media1.giphy.com/media/fMYhlRdVtRnsk/200w.mp4"></video>
       </div>
 
     </div>
   </div>
 
-
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="./assets/scripts/script.js"></script>
 </body>
 

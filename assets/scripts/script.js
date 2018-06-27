@@ -3,8 +3,11 @@
 const button = document.querySelector('button');
 const content = document.querySelector('.content');
 let time = 10;
-const timerDisplay = document.querySelector('h3#timer');
+const timerDisplay = document.querySelector('h2#timer');
 const timeDisplay = document.querySelector('span#time');
+const questionText = document.querySelector('h2#question');
+let questions = Array(10);
+console.log('questions: ', questions);
 
 let query = 'central+park';
 
@@ -23,8 +26,27 @@ const game = {
         timerDisplay.innerText = "Time's Up!";
       }
     }, 1000);
+  },
+  getData: function() {
+    let url =
+      'https://opentdb.com/api.php?amount=10&category=26&difficulty=easy&type=multiple';
+    let question1;
+    axios
+      .get(url)
+      .then(res => {
+        questions = questions.fill().map((question, index) => {
+          return (question = res.data.results[index].question);
+        });
+        console.log(questions);
+        questionText.innerHTML = questions[0];
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 };
+
+game.getData();
 
 console.log(game.gifUrl);
 

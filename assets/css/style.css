@@ -6,6 +6,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
 }
 
 h1 {
@@ -17,12 +18,23 @@ h1 {
   color: #91818a;
 }
 
+h2 {
+  font-size: 1.75rem;
+  font-weight: 400;
+  text-align: center;
+}
+h2#question {
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 div.game {
   color: #444;
   position: relative;
-  margin: 3vh auto;
-  width: 75%;
-  height: 94vh;
+  margin: 1vh auto;
+  width: 80%;
+  height: 88vh;
   background-color: #ebdccb;
 }
 
@@ -49,5 +61,20 @@ button:hover {
 }
 
 .hidden {
+  display: none;
+}
+
+ul {
+  text-align: center;
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  font-size: 1.7rem;
+  margin: 20px 0;
+}
+
+video {
   display: none;
 }
