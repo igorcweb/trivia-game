@@ -1,5 +1,3 @@
-//giphy api key 5n53cDRx0FU49ewKdFwuBjKCTqy8XNip
-
 const button = $('button');
 const content = $('.content');
 let time = 30;
@@ -12,9 +10,8 @@ let answers = Array(10);
 let incorrectAnswers = Array(10);
 let choices = [];
 let query = '';
-let choicesText = $('li.choices');
-
-query = 'central+park';
+let choiceText = $('li.choice');
+let choicesList = $('ul.choices');
 
 const data = [
   {
@@ -98,6 +95,9 @@ const game = {
     let timeClock = setInterval(() => {
       time--;
       timeDisplay.text(time);
+      if (time < 6) {
+        timeDisplay.addClass('warning');
+      }
       if (time === 0) {
         clearInterval(timeClock);
         timerDisplay.text("Time's Up!");
@@ -105,20 +105,6 @@ const game = {
     }, 1000);
   },
   getData: function() {
-    let url =
-      'https://opentdb.com/api.php?amount=10&category=26&difficulty=easy&type=multiple';
-
-    // $.get(url)
-    //   .done(data => {
-    //     questions = questions.fill().map((question, index) => {
-    //       return (question = data.results[index].question);
-    //     });
-    //     console.log(questions);
-    //     questionText.html(questions[questionNum]);
-    //   })
-    //   .fail(error => {
-    //     console.log(error);
-    //   });
     questions = questions.fill().map((item, index) => {
       return (item = data[index].question);
     });
@@ -137,16 +123,21 @@ const game = {
     console.log('incorrect answers: ', incorrectAnswers);
 
     choices = incorrectAnswers.map((item, index) => {
-      item.push(answers[index]);
+      //random number between 0 and 3
+      let randomIndex = Math.floor(Math.random() * 4);
+      //insert correct answer at a random position inside incorrectAnswers array
+      item.splice(randomIndex, 0, answers[index]);
       return item;
     });
     console.log('choices:', choices);
+    $.each(choiceText, (index, choice) => {
+      choice.innerText = choices[questionNum][index];
+      console.log(choice.innerText);
+    });
   }
 };
 
 game.getData();
-
-console.log(game.gifUrl);
 
 button.on('click', function() {
   game.reset();
