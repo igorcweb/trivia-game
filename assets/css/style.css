@@ -71,8 +71,19 @@ ul {
 }
 
 li {
+  width: 400px;
+  cursor: pointer;
   font-size: 1.7rem;
-  margin: 20px 0;
+  margin: 20px auto;
+  padding: 7px 0;
+  border: 2px solid transparent;
+  transition: 0.3s ease-in-out;
+}
+
+li:hover {
+  /* #73B1BC #69A7B2 */
+  background-color: #8cc6d0;
+  border: 2px solid #91818a;
 }
 
 video {

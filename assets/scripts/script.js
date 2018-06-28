@@ -1,46 +1,48 @@
 //giphy api key 5n53cDRx0FU49ewKdFwuBjKCTqy8XNip
 
-const button = document.querySelector('button');
-const content = document.querySelector('.content');
-let time = 10;
-const timerDisplay = document.querySelector('h2#timer');
-const timeDisplay = document.querySelector('span#time');
-const questionText = document.querySelector('h2#question');
+const button = $('button');
+const content = $('.content');
+let time = 30;
+let questionNum = 0;
+const timerDisplay = $('h2#timer');
+const timeDisplay = $('span#time');
+const questionText = $('h2#question');
 let questions = Array(10);
-console.log('questions: ', questions);
+let queries = ['snow+mountain', 'Charlie Sheen'];
+let choicesText = $('li.choices');
+let choices = Array(4);
 
 let query = 'central+park';
 
 const game = {
   gifUrl: `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=5n53cDRx0FU49ewKdFwuBjKCTqy8XNip&limit=5`,
   reset: () => {
-    button.classList.add('hidden');
-    content.classList.remove('hidden');
+    button.addClass('hidden');
+    content.removeClass('hidden');
   },
   startTimer: () => {
     let timeClock = setInterval(() => {
       time--;
-      timeDisplay.innerText = time;
+      timeDisplay.text(time);
       if (time === 0) {
         clearInterval(timeClock);
-        timerDisplay.innerText = "Time's Up!";
+        timerDisplay.text("Time's Up!");
       }
     }, 1000);
   },
   getData: function() {
     let url =
       'https://opentdb.com/api.php?amount=10&category=26&difficulty=easy&type=multiple';
-    let question1;
-    axios
-      .get(url)
-      .then(res => {
+
+    $.get(url)
+      .done(data => {
         questions = questions.fill().map((question, index) => {
-          return (question = res.data.results[index].question);
+          return (question = data.results[index].question);
         });
         console.log(questions);
-        questionText.innerHTML = questions[0];
+        questionText.html(questions[questionNum]);
       })
-      .catch(error => {
+      .fail(error => {
         console.log(error);
       });
   }
@@ -50,7 +52,7 @@ game.getData();
 
 console.log(game.gifUrl);
 
-button.addEventListener('click', function() {
+button.on('click', function() {
   game.reset();
   game.startTimer();
 });
