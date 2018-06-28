@@ -10,12 +10,11 @@ const questionText = $('h2#question');
 let questions = Array(10);
 let answers = Array(10);
 let incorrectAnswers = Array(10);
-let options = [];
-let querie = '';
+let choices = [];
+let query = '';
 let choicesText = $('li.choices');
-let choices = Array(4);
 
-let query = 'central+park';
+query = 'central+park';
 
 const data = [
   {
@@ -137,11 +136,11 @@ const game = {
 
     console.log('incorrect answers: ', incorrectAnswers);
 
-    options = incorrectAnswers.map((item, index, arr) => {
+    choices = incorrectAnswers.map((item, index) => {
       item.push(answers[index]);
       return item;
     });
-    console.log('options:', options);
+    console.log('choices:', choices);
   }
 };
 
