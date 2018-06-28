@@ -16,6 +16,7 @@ h1 {
   text-align: center;
   padding-top: 2rem;
   color: #91818a;
+  margin-bottom: 0;
 }
 
 span#time.warning {
@@ -31,6 +32,10 @@ h2#question {
   width: 80%;
   margin-right: auto;
   margin-left: auto;
+}
+
+h2.correct {
+  margin-top: -1rem;
 }
 
 div.game {

@@ -1,6 +1,7 @@
 const button = $('button');
 const content = $('.content');
 let time = 30;
+let timeClock;
 let questionNum = 0;
 const timerDisplay = $('h2#timer');
 const timeDisplay = $('span#time');
@@ -11,11 +12,15 @@ let incorrectAnswers = Array(10);
 let choices = [];
 let query = '';
 let choiceText = $('li.choice');
-let choicesList = $('ul.choices');
+let choiceList = $('ul.choices');
+let message = $('div.message');
+let correct = $('h2.correct');
+let correctSpan = $('span.correct');
+let status = $('h2#status');
 
 const data = [
   {
-    question: 'Which of the following was not one of "The Magnificent Seven"?',
+    question: 'Which of the following was NOT one of "The Magnificent Seven"?',
     correct_answer: 'Clint Eastwood',
     incorrect_answers: ['Steve McQueen', 'Charles Bronson', 'Robert Vaughn']
   },
@@ -88,11 +93,14 @@ const data = [
 const game = {
   gifUrl: `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=5n53cDRx0FU49ewKdFwuBjKCTqy8XNip&limit=5`,
   reset: () => {
+    time = 30;
     button.addClass('hidden');
     content.removeClass('hidden');
+    choiceList.removeClass('hidden');
+    message.addClass('hidden');
   },
   startTimer: () => {
-    let timeClock = setInterval(() => {
+    timeClock = setInterval(() => {
       time--;
       timeDisplay.text(time);
       if (time < 6) {
@@ -114,7 +122,11 @@ const game = {
     answers = answers.fill().map((item, index) => {
       return (item = data[index].correct_answer);
     });
+    let answer = answers[questionNum];
+    query = answer.toLowerCase().replace(' ', '+');
+    correctSpan.text(answer);
     console.log('answers: ', answers);
+    console.log('query: ', query);
 
     incorrectAnswers = incorrectAnswers.fill().map((item, index) => {
       return (item = data[index].incorrect_answers);
@@ -131,8 +143,21 @@ const game = {
     });
     console.log('choices:', choices);
     $.each(choiceText, (index, choice) => {
-      choice.innerText = choices[questionNum][index];
-      console.log(choice.innerText);
+      $(choice).text(choices[questionNum][index]);
+      console.log($(choice).text());
+    });
+    choiceList.on('click', '.choice', function() {
+      clearInterval(timeClock);
+      console.log($(this).text());
+      choiceList.addClass('hidden');
+      message.removeClass('hidden');
+      if ($(this).text() === answer) {
+        correct.addClass('hidden');
+        status.text('Correct!');
+      } else {
+        correct.removeClass('hidden');
+        status.text('Wrong!');
+      }
     });
   }
 };
