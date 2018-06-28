@@ -8,7 +8,10 @@ const timerDisplay = $('h2#timer');
 const timeDisplay = $('span#time');
 const questionText = $('h2#question');
 let questions = Array(10);
-let queries = ['snow+mountain', 'Charlie Sheen'];
+let answers = Array(10);
+let incorrectAnswers = Array(10);
+let options = [];
+let querie = '';
 let choicesText = $('li.choices');
 let choices = Array(4);
 
@@ -106,17 +109,39 @@ const game = {
     let url =
       'https://opentdb.com/api.php?amount=10&category=26&difficulty=easy&type=multiple';
 
-    $.get(url)
-      .done(data => {
-        questions = questions.fill().map((question, index) => {
-          return (question = data.results[index].question);
-        });
-        console.log(questions);
-        questionText.html(questions[questionNum]);
-      })
-      .fail(error => {
-        console.log(error);
-      });
+    // $.get(url)
+    //   .done(data => {
+    //     questions = questions.fill().map((question, index) => {
+    //       return (question = data.results[index].question);
+    //     });
+    //     console.log(questions);
+    //     questionText.html(questions[questionNum]);
+    //   })
+    //   .fail(error => {
+    //     console.log(error);
+    //   });
+    questions = questions.fill().map((item, index) => {
+      return (item = data[index].question);
+    });
+    questionText.text(questions[questionNum]);
+    console.log('questions: ', questions);
+
+    answers = answers.fill().map((item, index) => {
+      return (item = data[index].correct_answer);
+    });
+    console.log('answers: ', answers);
+
+    incorrectAnswers = incorrectAnswers.fill().map((item, index) => {
+      return (item = data[index].incorrect_answers);
+    });
+
+    console.log('incorrect answers: ', incorrectAnswers);
+
+    options = incorrectAnswers.map((item, index, arr) => {
+      item.push(answers[index]);
+      return item;
+    });
+    console.log('options:', options);
   }
 };
 
