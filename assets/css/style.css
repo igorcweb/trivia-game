@@ -96,5 +96,7 @@ li:hover {
 }
 
 video {
-  display: none;
+  display: block;
+  margin: 0 auto;
+  height: 260px;
 }
