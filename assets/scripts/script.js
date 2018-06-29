@@ -1,5 +1,5 @@
 (function() {
-  const button = $('button');
+  const start = $('button');
   const content = $('.content');
   let time;
   let timeClock;
@@ -127,13 +127,27 @@
         .replace(' ', '+');
       game.getGif();
       game.startTimer();
-      button.addClass('hidden');
+      start.addClass('hidden');
       content.removeClass('hidden');
       choiceList.removeClass('hidden');
       message.addClass('hidden');
       gif.addClass('hidden');
       timerDisplay.removeClass('hidden');
       result.addClass('hidden');
+    },
+
+    result: () => {
+      setTimeout(() => {
+        gif.addClass('hidden');
+        questionText.addClass('hidden');
+        correctText.addClass('hidden');
+        timerDisplay.addClass('hidden');
+        status.text("All done, here's how you did!");
+        result.removeClass('hidden');
+        correctResult.text(correct);
+        incorrectResult.text(incorrect);
+        unansweredResult.text(unanswered);
+      }, 4000);
     },
     startTimer: () => {
       timerDisplay.html(`Time Remaining: 30 Seconds`);
@@ -159,17 +173,7 @@
           if (questionNum < 10) {
             setTimeout(game.reset, 4000);
           } else {
-            setTimeout(() => {
-              gif.addClass('hidden');
-              questionText.addClass('hidden');
-              correctText.addClass('hidden');
-              timerDisplay.addClass('hidden');
-              status.text("All done, here's how you did!");
-              result.removeClass('hidden');
-              correctResult.text(correct);
-              incorrectResult.text(incorrect);
-              unansweredResult.text(unanswered);
-            }, 4000);
+            this.result();
           }
         }
       }, 1000);
@@ -216,18 +220,7 @@
         if (questionNum < 10) {
           setTimeout(game.reset, 4000);
         } else {
-          console.log('Game Ovah');
-          setTimeout(() => {
-            gif.addClass('hidden');
-            questionText.addClass('hidden');
-            correctText.addClass('hidden');
-            timerDisplay.addClass('hidden');
-            status.text("All done, here's how you did!");
-            result.removeClass('hidden');
-            correctResult.text(correct);
-            incorrectResult.text(incorrect);
-            unansweredResult.text(unanswered);
-          }, 4000);
+          this.result();
         }
       });
       startOver.on('click', function() {
@@ -242,7 +235,7 @@
 
   game.getData();
 
-  button.on('click', function() {
+  start.on('click', function() {
     game.reset();
   });
 })();
