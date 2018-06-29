@@ -5,7 +5,6 @@
   let timeClock;
   let questionNum = 0;
   const timerDisplay = $('h2#timer');
-  const timeDisplay = $('span#time');
   const questionText = $('h2#question');
   let questions = Array(10);
   let answers = Array(10);
@@ -94,7 +93,6 @@
   ];
 
   const game = {
-    //giphy api key 5n53cDRx0FU49ewKdFwuBjKCTqy8XNip
     getGif: () => {
       const url = `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=5n53cDRx0FU49ewKdFwuBjKCTqy8XNip&limit=5`;
       $.get(url)
@@ -108,7 +106,17 @@
     },
 
     reset: () => {
-      time = 5;
+      timerDisplay.html(
+        `Time Remaining: <span id="time">${time || 30}</span> Seconds`
+      );
+      questionText.text(questions[questionNum]);
+      $.each(choiceText, (index, choice) => {
+        $(choice).text(choices[questionNum][index]);
+      });
+      correctSpan.text(answers[questionNum]);
+      query = answers[questionNum].toLowerCase().replace(' ', '+');
+      game.getGif();
+      game.startTimer();
       button.addClass('hidden');
       content.removeClass('hidden');
       choiceList.removeClass('hidden');
@@ -116,11 +124,14 @@
       $('video').addClass('hidden');
     },
     startTimer: () => {
+      time = 30;
       timeClock = setInterval(() => {
         time--;
-        timeDisplay.text(time);
+        timerDisplay.html(
+          `Time Remaining: <span id="time">${time || 30}</span> Seconds`
+        );
         if (time < 6) {
-          timeDisplay.addClass('warning');
+          $('span#time').addClass('warning');
         }
         if (time === 0) {
           clearInterval(timeClock);
@@ -129,7 +140,11 @@
           choiceList.addClass('hidden');
           message.removeClass('hidden');
           $('video').removeClass('hidden');
-          setTimeout(game.getData, 3000);
+          if (questionNum < 10) {
+            setTimeout(game.reset, 4000);
+          } else {
+            console.log('Game Ovah!');
+          }
         }
       }, 1000);
     },
@@ -137,15 +152,13 @@
       questions = questions.fill().map((item, index) => {
         return (item = data[index].question);
       });
-      questionText.text(questions[questionNum]);
 
       answers = answers.fill().map((item, index) => {
         return (item = data[index].correct_answer);
       });
       let answer = answers[questionNum];
-      console.log('answer: ', answer);
-      query = answer.toLowerCase().replace(' ', '+');
-      correctSpan.text(answer);
+
+      console.log('answers: ', answers);
 
       incorrectAnswers = incorrectAnswers.fill().map((item, index) => {
         return (item = data[index].incorrect_answers);
@@ -158,9 +171,7 @@
         item.splice(randomIndex, 0, answers[index]);
         return item;
       });
-      $.each(choiceText, (index, choice) => {
-        $(choice).text(choices[questionNum][index]);
-      });
+
       choiceList.on('click', '.choice', function() {
         clearInterval(timeClock);
         status.removeClass('hidden');
@@ -180,10 +191,7 @@
 
   game.getData();
 
-  game.getGif();
-
   button.on('click', function() {
     game.reset();
-    game.startTimer();
   });
 })();
