@@ -14,7 +14,7 @@
 <body>
   <div class="wrapper">
     <div class="game">
-      <h1>Movies Trivia Game</h1>
+      <h1>Movies Trivia Quiz</h1>
       <button>Start</button>
       <div class="content hidden">
         <h2 id="timer"></h2>
@@ -26,11 +26,24 @@
           <li class="choice"></li>
         </ul>
         <div class="message hidden">
-          <h2 class="hidden" id="status">Wrong!</h2>
+          <h2 class="hidden" id="status"></h2>
           <h2 class="correct">The Correct Answer was:
             <span class="correct"></span>
           </h2>
         </div>
+        <div class="result hidden">
+          <h2 class="correct-result">Correct Answers:
+            <span id="correct"></span>
+          </h2>
+          <h2 class="incorrect-result">Incorrect Answers:
+            <span id="incorrect"></span>
+          </h2>
+          <h2 class="unanswered-result">Unanswered:
+            <span id="unanswered"></span>
+          </h2>
+          <h2 id="startover">Start Over</h2>
+        </div>
+
         <video class="hidden" autoplay="autoplay" loop="loop" src=""></video>
 
 

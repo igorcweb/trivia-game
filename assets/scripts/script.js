@@ -14,10 +14,19 @@
   let choiceText = $('li.choice');
   let choiceList = $('ul.choices');
   let message = $('div.message');
-  let correct = $('h2.correct');
+  let correctText = $('h2.correct');
   let correctSpan = $('span.correct');
   let status = $('h2#status');
   let gifSrc = '';
+  let gif = $('video');
+  let correct = 0;
+  let incorrect = 0;
+  let unanswered = 0;
+  let correctResult = $('span#correct');
+  let incorrectResult = $('span#incorrect');
+  let unansweredResult = $('span#unanswered');
+  let startOver = $('h2#startover');
+  let result = $('div.result');
 
   const data = [
     {
@@ -98,7 +107,7 @@
       $.get(url)
         .done(data => {
           gifSrc = data.data[0].images.original.mp4;
-          $('video').attr('src', gifSrc);
+          gif.attr('src', gifSrc);
         })
         .fail(error => {
           console.log(error);
@@ -106,44 +115,61 @@
     },
 
     reset: () => {
-      timerDisplay.html(
-        `Time Remaining: <span id="time">${time || 30}</span> Seconds`
-      );
+      questionText.removeClass('hidden');
       questionText.text(questions[questionNum]);
       $.each(choiceText, (index, choice) => {
         $(choice).text(choices[questionNum][index]);
       });
       correctSpan.text(answers[questionNum]);
-      query = answers[questionNum].toLowerCase().replace(' ', '+');
+      query = answers[questionNum]
+        .toLowerCase()
+        .trim()
+        .replace(' ', '+');
       game.getGif();
       game.startTimer();
       button.addClass('hidden');
       content.removeClass('hidden');
       choiceList.removeClass('hidden');
       message.addClass('hidden');
-      $('video').addClass('hidden');
+      gif.addClass('hidden');
+      timerDisplay.removeClass('hidden');
+      result.addClass('hidden');
     },
     startTimer: () => {
+      timerDisplay.html(`Time Remaining: 30 Seconds`);
       time = 30;
       timeClock = setInterval(() => {
         time--;
         timerDisplay.html(
-          `Time Remaining: <span id="time">${time || 30}</span> Seconds`
+          `Time Remaining: <span id="time">${time}</span> Seconds`
         );
         if (time < 6) {
           $('span#time').addClass('warning');
         }
         if (time === 0) {
+          unanswered++;
           clearInterval(timeClock);
           timerDisplay.text("Time's Up!");
           questionNum++;
           choiceList.addClass('hidden');
           message.removeClass('hidden');
-          $('video').removeClass('hidden');
+          correctText.removeClass('hidden');
+          status.text('');
+          gif.removeClass('hidden');
           if (questionNum < 10) {
             setTimeout(game.reset, 4000);
           } else {
-            console.log('Game Ovah!');
+            setTimeout(() => {
+              gif.addClass('hidden');
+              questionText.addClass('hidden');
+              correctText.addClass('hidden');
+              timerDisplay.addClass('hidden');
+              status.text("All done, here's how you did!");
+              result.removeClass('hidden');
+              correctResult.text(correct);
+              incorrectResult.text(incorrect);
+              unansweredResult.text(unanswered);
+            }, 4000);
           }
         }
       }, 1000);
@@ -156,7 +182,6 @@
       answers = answers.fill().map((item, index) => {
         return (item = data[index].correct_answer);
       });
-      let answer = answers[questionNum];
 
       console.log('answers: ', answers);
 
@@ -177,14 +202,40 @@
         status.removeClass('hidden');
         choiceList.addClass('hidden');
         message.removeClass('hidden');
-        $('video').removeClass('hidden');
-        if ($(this).text() === answer) {
-          correct.addClass('hidden');
+        gif.removeClass('hidden');
+        if ($(this).text() === answers[questionNum]) {
+          correct++;
+          correctText.addClass('hidden');
           status.text('Correct!');
         } else {
-          correct.removeClass('hidden');
+          incorrect++;
+          correctText.removeClass('hidden');
           status.text('Wrong!');
         }
+        questionNum++;
+        if (questionNum < 10) {
+          setTimeout(game.reset, 4000);
+        } else {
+          console.log('Game Ovah');
+          setTimeout(() => {
+            gif.addClass('hidden');
+            questionText.addClass('hidden');
+            correctText.addClass('hidden');
+            timerDisplay.addClass('hidden');
+            status.text("All done, here's how you did!");
+            result.removeClass('hidden');
+            correctResult.text(correct);
+            incorrectResult.text(incorrect);
+            unansweredResult.text(unanswered);
+          }, 4000);
+        }
+      });
+      startOver.on('click', function() {
+        correct = 0;
+        incorrect = 0;
+        unanswered = 0;
+        questionNum = 0;
+        game.reset();
       });
     }
   };

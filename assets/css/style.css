@@ -47,7 +47,8 @@ div.game {
   background-color: #ebdccb;
 }
 
-button {
+button,
+h2#startover {
   font-size: 2.5rem;
   letter-spacing: 1px;
   position: absolute;
@@ -63,7 +64,19 @@ button {
   outline: none;
 }
 
-button:hover {
+h2.correct-result {
+  margin-top: 3.3rem;
+}
+
+h2#startover {
+  position: relative;
+  display: inline-block;
+  margin-top: 100px;
+  padding: 10px 50px;
+}
+
+button:hover,
+h2#startover:hover {
   background-color: #88c5d0;
   color: #74646e;
   border-color: #9f8f98;
