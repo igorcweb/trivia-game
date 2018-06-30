@@ -173,7 +173,7 @@
           if (questionNum < 10) {
             setTimeout(game.reset, 4000);
           } else {
-            this.result();
+            game.result();
           }
         }
       }, 1000);
@@ -220,7 +220,7 @@
         if (questionNum < 10) {
           setTimeout(game.reset, 4000);
         } else {
-          this.result();
+          game.result();
         }
       });
       startOver.on('click', function() {

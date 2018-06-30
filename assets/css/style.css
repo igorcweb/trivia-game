@@ -10,7 +10,7 @@ body {
 }
 
 h1 {
-  font-size: 4.5rem;
+  font-size: 2.4rem;
   font-weight: 400;
   letter-spacing: 1px;
   text-align: center;
@@ -42,8 +42,8 @@ div.game {
   color: #444;
   position: relative;
   margin: 1vh auto;
-  width: 80%;
-  height: 88vh;
+  width: 100%;
+  height: 93vh;
   background-color: #ebdccb;
 }
 
@@ -112,4 +112,37 @@ video {
   display: block;
   margin: 0 auto;
   height: 260px;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  div.game {
+    margin: 1vh auto;
+    width: 80%;
+    height: 92vh;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  h1 {
+    font-size: 3.8rem;
+  }
+  div.game {
+    height: 89vh;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  h1 {
+    font-size: 4.5rem;
+  }
+  div.game {
+    height: 88vh;
+  }
 }
