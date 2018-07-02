@@ -147,7 +147,7 @@
         correctResult.text(correct);
         incorrectResult.text(incorrect);
         unansweredResult.text(unanswered);
-      }, 4000);
+      }, 3000);
     },
     startTimer: () => {
       timerDisplay.html(`Time Remaining: 30 Seconds`);
@@ -171,7 +171,7 @@
           status.text('');
           gif.removeClass('hidden');
           if (questionNum < 10) {
-            setTimeout(game.reset, 4000);
+            setTimeout(game.reset, 3000);
           } else {
             game.result();
           }
@@ -218,7 +218,7 @@
         }
         questionNum++;
         if (questionNum < 10) {
-          setTimeout(game.reset, 4000);
+          setTimeout(game.reset, 3000);
         } else {
           game.result();
         }
