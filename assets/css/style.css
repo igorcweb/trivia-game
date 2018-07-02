@@ -1,5 +1,3 @@
-/* #73B1BC #69A7B2 */
-
 body {
   background-image: url('../images/question-bg.jpg');
   background-attachment: fixed;
@@ -67,6 +65,25 @@ h2.correct-result {
   margin-top: 3.3rem;
 }
 
+body,
+.result {
+  animation-name: result;
+  animation-duration: 0.7s;
+  animation-timing-function: linear;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+}
+
+@keyframes result {
+  0% {
+    transform: scale(0.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 h2#startover {
   position: relative;
   display: inline-block;
@@ -112,7 +129,7 @@ li:hover {
 img {
   display: block;
   margin: 0 auto;
-  height: 260px;
+  height: 250px;
   max-width: 90%;
 }
 
@@ -135,9 +152,7 @@ img {
     font-size: 3.8rem;
     margin-bottom: 0;
   }
-  h2 {
-    font-size: 1.75rem;
-  }
+
   div.game {
     height: 89vh;
   }
@@ -153,6 +168,9 @@ img {
 @media (min-width: 992px) {
   h1 {
     font-size: 4.5rem;
+  }
+  h2 {
+    font-size: 1.7rem;
   }
   div.game {
     height: 88vh;
