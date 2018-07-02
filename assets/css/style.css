@@ -1,5 +1,17 @@
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none;
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: snow;
+  z-index: 2;
+}
+
 body {
-  background-image: url('../images/question-bg.jpg');
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;

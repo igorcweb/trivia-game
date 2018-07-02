@@ -105,8 +105,8 @@
     getGif: () => {
       const url = `https://api.giphy.com/v1/gifs/search?q=${query}&api_key=5n53cDRx0FU49ewKdFwuBjKCTqy8XNip&limit=5`;
       $.get(url)
-        .done(data => {
-          gifSrc = data.data[0].images.original.url;
+        .done(res => {
+          gifSrc = res.data[0].images.original.url;
           gif.attr('src', gifSrc);
         })
         .fail(error => {
