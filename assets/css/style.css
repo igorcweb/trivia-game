@@ -94,6 +94,7 @@ ul {
 
 li {
   width: 400px;
+  max-width: 90%;
   cursor: pointer;
   font-size: 1.5rem;
   margin: 20px auto;
@@ -112,7 +113,7 @@ img {
   display: block;
   margin: 0 auto;
   height: 260px;
-  max-width: 23rem;
+  max-width: 90%;
 }
 
 /* Small devices (landscape phones, 576px and up) */
@@ -145,9 +146,6 @@ img {
   }
   li {
     font-size: 1.7rem;
-  }
-  img {
-    max-width: none;
   }
 }
 
