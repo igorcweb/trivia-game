@@ -65,7 +65,6 @@ h2.correct-result {
   margin-top: 3.3rem;
 }
 
-body,
 .result {
   animation-name: result;
   animation-duration: 0.7s;
