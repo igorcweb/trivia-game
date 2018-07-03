@@ -1,5 +1,5 @@
 (function() {
-  $(document).ready(function() {
+  $(document).ready(() => {
     $('#overlay').addClass('loaded');
   });
 
