@@ -1,4 +1,8 @@
 (function() {
+  $(document).ready(function() {
+    $('#overlay').addClass('loaded');
+  });
+
   const start = $('button');
   const content = $('.content');
   let time;
