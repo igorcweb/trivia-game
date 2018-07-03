@@ -107,13 +107,16 @@
 
   const game = {
     getGif: () => {
-      const url = `https://api.giphy.com/v1/gifs/search?q=${query}&api_key=5n53cDRx0FU49ewKdFwuBjKCTqy8XNip&limit=5`;
+      const api_key = () => {
+        return '5n53cDRx0FU49ewKdFwuBjKCTqy8XNip&limit=5';
+      };
+      const url = `https://api.giphy.com/v1/gifs/search?q=${query}&api_key=${api_key()}`;
       $.get(url)
-        .done(res => {
+        .then(res => {
           gifSrc = res.data[0].images.original.url;
           gif.attr('src', gifSrc);
         })
-        .fail(error => {
+        .catch(error => {
           console.log(error);
         });
     },
