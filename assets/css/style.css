@@ -21,7 +21,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   font-family: Arial, Helvetica, sans-serif;
-  overflow: hidden;
+  font-size: 0.9rem;
 }
 
 h1 {
@@ -152,6 +152,10 @@ img {
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
+  body {
+    overflow: hidden;
+    font-size: 1rem;
+  }
   h1 {
     font-size: 3rem;
   }
